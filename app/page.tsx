@@ -6,7 +6,7 @@ export default async function HomePage() {
   const featuredReview = await getFeaturedReview();
   return (
     <>
-      <Heading>{featuredReview.title}</Heading>
+      <Heading>Indie Gamer</Heading>
       <p className="pb-3">Only the best indie games, reviewed for you.</p>
       <div className="bg-white w-80 sm:w-full border rounded shadow hover:shadow-xl">
         <Link

@@ -1,5 +1,9 @@
 import Heading from "@/components/Heading";
 
+export const metadata = {
+  title: "about",
+};
+
 export default function AboutPage() {
   return (
     <>

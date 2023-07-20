@@ -18,7 +18,6 @@ export async function getReview(slug: string) {
 //gray-matter로 md파일의 font-matter안의 정보를 data로, 본문을 content로 추출할 수 있다
 
 export async function getReviews() {
-  const files = await readdir("./content/reviews");
   const slugs = await getSlugs();
 
   const reviews = [];
@@ -41,3 +40,7 @@ export async function getSlugs() {
     .filter((file) => file.endsWith(".md"))
     .map((file) => file.slice(0, -".md".length));
 }
+
+//readdir메서드로 해당 경로의 파일명을 가져올 수 있다.
+
+//readdir, readFile과 같은 node:fs 의 메서드들은 서버사이드컴포넌트에서만 사용할 수 있다

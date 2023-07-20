@@ -3,6 +3,19 @@ import NavBar from "../components/NavBar";
 import "./globals.css";
 import { exo2, orbitron } from "./fonts";
 
+//metadata로 html head안의 meta data를 추가해줄 수 있다
+//추가할 수 있는 다양한 항목들이 있다.
+//root layout파일에 선언해야 전체 페이지에 적용됨.
+//특정 title을 특정 페이지에 적용하려면 해당 페이지에서 metadata선언하면됨
+//아래와같이 디폴트,템플릿형태로 만들면 특정페이지에 다르게 표시하기 좋음
+export const metadata = {
+  // title: "Indie Gamer",
+  title: {
+    default: "Indie Gamer",
+    template: "%s | Indie Gamer",
+  },
+};
+
 interface LayoutProps {
   children: ReactNode;
 }

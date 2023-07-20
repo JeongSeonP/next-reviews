@@ -1,13 +1,27 @@
 import Heading from "@/components/Heading";
+import ShareLinkButton from "@/components/ShareLinkButton";
 import { getReview } from "@/lib/reviews";
+
+//dynamic metadata
+//param으로 받는 slug로 title받아서 metadata title로 지정
+export async function generateMetadata({ params: { slug } }) {
+  const { title } = await getReview(slug);
+  return {
+    title: title,
+  };
+}
 
 export default async function ReviewPage({ params: { slug } }) {
   const { title, date, image, body } = await getReview(slug);
-
+  console.log("review page is rendering");
   return (
     <>
       <Heading>{title}</Heading>
-      <p className="italic pb-2">{date}</p>
+      <div className="flex gap-3 items-baseline">
+        <p className="italic pb-2">{date}</p>
+        <ShareLinkButton />
+      </div>
+
       <img
         src={image}
         alt=""
