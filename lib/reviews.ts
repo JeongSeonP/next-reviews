@@ -14,6 +14,9 @@ export async function getReview(slug: string) {
     populate: { image: { fields: ["url"] } },
     pagination: { pageSize: 1, withCount: false },
   });
+  if (data.length === 0) {
+    return null;
+  }
   const item = data[0];
   return {
     ...toReview(item),
@@ -85,12 +88,20 @@ async function fetchReviews(parameters) {
   const url =
     `${CMS_URL}/api/reviews?` +
     qs.stringify(parameters, { encodeValuesOnly: true });
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    // cache: "no-store",
+    next: {
+      revalidate: 60, //seconds
+    },
+  });
   if (!response.ok) {
     throw new Error(`CMS returned ${response.status} for ${url}`);
   }
   return await response.json();
 }
+//fetch 에 옵션설정하여 revalidate할 수 있다
+//cache: 'no-store' -> response를 캐시에 저장하지 않는 설정(=dynamic page =forced dynamic과 마찬가지)
+//next: {revalidate: 60, //seconds}, -> 페이지에서 revalidate선언한것과동일
 
 function toReview(item) {
   const { attributes } = item;
