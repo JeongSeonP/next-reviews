@@ -3,6 +3,8 @@ import matter from "gray-matter";
 import { marked } from "marked";
 import qs from "qs";
 
+export const CACHE_TAG_REVIEWS = "review";
+
 const CMS_URL = "http://localhost:1337";
 
 export async function getReview(slug: string) {
@@ -91,7 +93,8 @@ async function fetchReviews(parameters) {
   const response = await fetch(url, {
     // cache: "no-store",
     next: {
-      revalidate: 60, //seconds
+      // revalidate: 60, //seconds
+      tags: [CACHE_TAG_REVIEWS],
     },
   });
   if (!response.ok) {
@@ -101,7 +104,8 @@ async function fetchReviews(parameters) {
 }
 //fetch 에 옵션설정하여 revalidate할 수 있다
 //cache: 'no-store' -> response를 캐시에 저장하지 않는 설정(=dynamic page =forced dynamic과 마찬가지)
-//next: {revalidate: 60, //seconds}, -> 페이지에서 revalidate선언한것과동일
+//next: {revalidate: 60, //seconds}, -> 페이지에서 revalidate선언해봣던것처럼, 시간으로 설정
+//next: {tags:['review']}, -> useQuery의 쿼리키 같은 역할- api route에서 해당 tag식별하여 revalidate
 
 function toReview(item) {
   const { attributes } = item;
