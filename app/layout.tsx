@@ -46,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps) {
 //Link
 // prefetching했다가 보여주기 때문에 SPA처럼 동작 - client-side navigation 동작
 //link대신 a태그사용시 full html문서를 받아와서 보여준다 (multi page application)
-// (Link는 prefetch & RSC)
+// (Link는 prefetch & RSC(react server component))
 // link를 통해서가 아니고 직접적으로 해당 url로 접근할 경우에는 full html문서를 받아와서 보여준다
 //즉, 최초 접근하는 메인페이지는 full html문서받고, 이후 link를 통해 접근하는 페이지는
 // client-side navigation을 통해 빠르게 접근할 수 있다, 마치 SPA처럼.

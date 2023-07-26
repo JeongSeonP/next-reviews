@@ -40,15 +40,18 @@ export async function getReview(slug: string) {
 //tailwind prose classname으로 md에 적용된 글자스타일을 화면에 적용시켜줄 수 있다
 //gray-matter로 md파일의 front-matter안의 정보를 data로, 본문을 content로 추출할 수 있다
 
-export async function getReviews(pageSize: number) {
-  const { data } = await fetchReviews({
+export async function getReviews(pageSize: number, page: number) {
+  const { data, meta } = await fetchReviews({
     fields: ["slug", "title", "subtitle", "publishedAt"],
     populate: { image: { fields: ["url"] } },
     sort: ["publishedAt:desc"],
-    pagination: { pageSize },
+    pagination: { pageSize, page },
   });
 
-  return data.map(toReview);
+  return {
+    pageCount: meta.pagination.pageCount,
+    reviews: data.map(toReview),
+  };
   //image에 대한 url에 strapi서버주소를 넣어줌으로서,
   //브라우저가 localhost:3000에서 찾지 않도록 절대경로를 지정해준것
   // ("url": "/uploads/hades_2018_bff8e28a82.jpg" attr안에 url이 이런형태기때문에)

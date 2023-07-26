@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default async function HomePage() {
   // const review = await getFeaturedReview();
-  const reviews = await getReviews(3);
+  const { reviews } = await getReviews(3, 1);
   return (
     <>
       <Heading>Indie Gamer</Heading>
